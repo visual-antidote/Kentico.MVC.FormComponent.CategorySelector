@@ -1,0 +1,120 @@
+﻿@using Kentico.Components.Web.Mvc.Dialogs
+
+@model VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.ModalDialogs.CategorySelectModalDialogViewModel
+
+<!-- Required Stylesheets -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/Content/FormComponents/CategorySelectComponent/hummingbird-treeview.css" rel="stylesheet">
+
+
+<!-- Required Javascript -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="~/Content/FormComponents/CategorySelectComponent/hummingbird-treeview.js"></script>
+
+
+@helper GenerateCategoryList(IList<VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.ModalDialogs.CategorySelectItemViewModel> categories, int level = 1)
+{
+    var classUL = "";
+    var idUL = "";
+
+    if (level == 1)
+    {
+        classUL = "hummingbird-base";
+        idUL = "treeview";
+    }
+
+    <ul id="@idUL" class="@classUL">
+        @foreach (var c in categories)
+        {
+            var endNodeClass = "hummingbird-end-node";
+            var expandIconClass = "";
+            var leafStyle = "";
+
+            if (c.Categories != null && c.Categories.Count() > 0)
+            {
+                expandIconClass = "fa fa-plus";
+                endNodeClass = "parent-node";
+            }
+            else
+            {
+                leafStyle = "style=margin-left:21px;";
+            }
+
+            <li data-id="@level">
+                <i class="@expandIconClass"></i>
+                <span @leafStyle></span><label>
+                    <input class="@endNodeClass" id="@c.GUID" name="categories-check-box" data-id="@c.CodeName" type="checkbox" /> @c.DisplayName
+                </label>
+
+                @if (c.Categories != null && c.Categories.Count() > 0)
+                {
+                    @GenerateCategoryList(c.Categories, (level + 1))
+                }
+
+
+            </li>
+        }
+    </ul>
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    @Html.Kentico().ModalDialogScript()
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+
+    @if (Model.IsError)
+    {
+        <h2>@Model.ErrorMessage</h2>
+    }
+
+    <form action="">
+        <div id="treeview_container" class="hummingbird-treeview" style="overflow-y: scroll;">
+            @GenerateCategoryList(Model.Categories)
+        </div>
+    </form>
+
+    @* Script that preselects the check boxes button of the current categories
+        Gets the value from the data passed when the 'kentico.modalDialog.open' function is called *@
+    <script type="text/javascript">
+
+
+
+        function customFunction() {
+
+            var defaultValue = kentico.modalDialog.getData().value;
+            var checkedArray = defaultValue.replace(/\s/g, "").split(',');
+
+            $("#treeview").hummingbird();
+
+            for (var i = 0; i < checkedArray.length; i++) {
+
+                let checkThis = document.querySelectorAll("[data-id='"+checkedArray[i]+"']");
+
+                if(checkThis && typeof checkThis[0] !== 'undefined')
+                {
+                    checkThis[0].checked=true;
+                }
+
+                $("#treeview").hummingbird("expandNode",{attr:"data-id",name: checkedArray[i],expandParents:true});
+                //document.getElementById(checkedArray[i]).checked = true;
+            }
+
+        }
+
+        if (document.readyState === "loading") {
+            // Calls the function during the 'DOMContentLoaded' event, after the HTML document has been completely loaded
+            document.addEventListener("DOMContentLoaded", function () {
+                customFunction();
+            });
+        } else {
+            // Calls the function directly in cases where the component is rendered dynamically after 'DOMContentLoaded' has occurred
+            customFunction();
+        }
+
+
+    </script>
+</body>
+</html>

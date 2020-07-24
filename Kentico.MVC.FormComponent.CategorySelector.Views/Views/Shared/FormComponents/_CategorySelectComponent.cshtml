@@ -1,0 +1,83 @@
+﻿@using Kentico.Forms.Web.Mvc
+
+@using Kentico.Forms.Web.Mvc
+
+@model VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectComponent
+
+
+@{
+    // Gets a collection of system HTML attributes necessary for the functionality of form component inputs
+    IDictionary<string, object> htmlAttributes = ViewData.GetEditorHtmlAttributes();
+
+    // Prepares data that will be passed to the function that opens the modal dialog
+    string dialogData = Newtonsoft.Json.JsonConvert.SerializeObject(new
+    {
+        modalDialogUrl = Url.Action("Index", "CategorySelectModalDialog", new { IncludeSites = Model.IncludeSites, IncludeGlobalCategories = Model.IncludeGlobalCategories }),
+        categoryInputId = Html.IdFor(m => m.CategoryCodeNameListAsText).ToHtmlString()
+    });
+
+    string categoryCountId = Html.IdFor(m => m.CategoryCodeNameListAsText).ToHtmlString() + "-categories-selected-count";
+    string buttonOpenModalId = Html.IdFor(m => m.CategoryCodeNameListAsText).ToHtmlString() + "-categories-button-open-modal";
+}
+
+
+@* Button that opens the modal dialog when clicked *@
+<button type="button" class="ktc-btn ktc-btn-default" id="@buttonOpenModalId">Select Categories</button>
+<div>
+    <span style="font-weight:bold;" id="@categoryCountId">@Model.CategoriesSelectedCount</span> categories selected
+</div>
+@* Textbox input element that holds the form component's list of categories. This will be a comma-separated list that is populated by the modal dialog. *@
+@Html.HiddenFor(m => m.CategoryCodeNameListAsText, htmlAttributes)
+
+
+<script>
+
+    (function () {
+
+        function openCategoryModalDialog(dialogData) {
+            // Gets the form component's input element
+            var inputElement = window.document.querySelector('#' + dialogData.categoryInputId);
+
+            console.dir(inputElement);
+            // Opens the modal dialog
+            kentico.modalDialog.open({
+                url: dialogData.modalDialogUrl,
+                maximized: true,
+                applyCallback: function (dialogWindow) {
+                    // Retrieves the selected value from the modal dialog
+                    //var selectedValue = dialogWindow.document.querySelector('input[name="categories"]:checked').value;
+                    let checkNodeList = dialogWindow.document.querySelectorAll('input[name="categories-check-box"]:checked');
+                    let checkCategoryIDArray = [];
+
+                    for (var i = 0; i < checkNodeList.length; i++) {
+                        if (checkNodeList[i].dataset) {
+                            checkCategoryIDArray.push(checkNodeList[i].dataset.id);
+                        }
+                    }
+
+                    let catCount = document.getElementById('@categoryCountId');
+                    if (catCount) {
+                        catCount.innerHTML = checkNodeList.length;
+                    }
+
+                    // Updates the value of the input element in the property configuration dialog
+                    inputElement.value = checkCategoryIDArray.join(","); //selectedValue;
+                },
+                applyButtonText: 'Confirm category selection',
+                title: 'Select categories',
+                // Passes the current categories to the modal dialog data
+                data: { value: inputElement.value }
+            });
+        }
+
+        var buttonClicker = document.getElementById("@buttonOpenModalId");
+        buttonClicker.addEventListener("click", function () {
+            // dialogData contains the ids of the elements of this particular component.
+            // set at the top of this page, it is generated using Newtonsoft library.
+            // in order to pass it as a normal JSON object to the function handler, need to convert it like this:
+            let jsonModel = JSON.parse('@Html.Raw(dialogData)');
+            openCategoryModalDialog(jsonModel);
+        });
+
+    })();
+</script>
