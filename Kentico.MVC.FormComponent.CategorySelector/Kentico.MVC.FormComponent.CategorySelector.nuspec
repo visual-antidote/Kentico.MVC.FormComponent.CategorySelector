@@ -7,7 +7,8 @@
 		<authors>$author$</authors>
 		<owners>$author$</owners>
 		<projectUrl>https://github.com/visual-antidote/Kentico.MVC.FormComponent.CategorySelector</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Kentico/devnet.kentico.com/master/marketplace/assets/generic-integration.png</iconUrl>
+		<iconUrl>https://www.visualantidote.com/images/va-nuget-logo.png</iconUrl>
+		<icon>images\va-nuget-logo.png</icon>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
 		<releaseNotes/>
@@ -19,8 +20,8 @@
 	</metadata>
 	<files>
 		<!-- Include the compiled views dll -->
-		<file src="bin\VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Kentico.MVC.Views.dll" target = "lib\net461" />
-
+		<file src="bin\VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Views.dll" target = "lib\net461" />
+		<file src=".\images\va-nuget-logo.png" target="images\" />
 		<!-- Sample of how to include this file in the Content of the Nuget, this would cause the SampleIncludeFile.txt to be copied to the SampleResource folder in the project you import the NuGet package in
 	<file src="SampleResource\SampleIncludedFile.txt" target = "Content\SampleResource" />
 	-->

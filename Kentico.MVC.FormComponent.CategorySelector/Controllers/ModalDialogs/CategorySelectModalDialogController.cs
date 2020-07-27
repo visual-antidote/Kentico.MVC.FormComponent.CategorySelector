@@ -31,7 +31,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
             }
 
 
-            // Return PartialView instead of View or else you get this error: The model item passed into the dictionary is of type 'MedioClinic.Models.ModalDialogs.ColorModalDialogViewModel', but this dictionary requires a model item of type 'MedioClinic.Models.PageViewModel'.
+            // Return PartialView instead of View or else you get this error: The model item passed into the dictionary is of type 'Models.ModalDialogs.ColorModalDialogViewModel', but this dictionary requires a model item of type 'MedioClinic.Models.PageViewModel'.
             // That is because the normal view uses the _Layout which assumes uses of the PageViewModel object
             // We don't need the full view here, just the stand-alone modal dialog
             return PartialView("ModalDialogs/CategorySelectModalDialog/_CategorySelectModalDialog", model);
