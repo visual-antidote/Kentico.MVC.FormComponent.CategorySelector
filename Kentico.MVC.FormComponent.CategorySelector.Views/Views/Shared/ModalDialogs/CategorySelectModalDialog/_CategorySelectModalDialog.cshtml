@@ -70,6 +70,15 @@
         <h2>@Model.ErrorMessage</h2>
     }
 
+
+    <button class="btn btn-responsive  btn-primary" id="expandAll">Expand All</button>
+
+    <button class="btn btn-responsive  btn-primary" id="collapseAll">Collapse All</button>
+
+    <button class="btn btn-responsive  btn-primary" id="selectAll">Select All</button>
+
+    <button class="btn btn-responsive  btn-primary" id="deselectAll">Deselect All</button>
+
     <form action="">
         <div id="treeview_container" class="hummingbird-treeview" style="overflow-y: scroll;">
             @GenerateCategoryList(Model.Categories)
@@ -91,16 +100,34 @@
 
             for (var i = 0; i < checkedArray.length; i++) {
 
-                let checkThis = document.querySelectorAll("[data-id='"+checkedArray[i]+"']");
+                let checkThis = document.querySelectorAll("[data-id='" + checkedArray[i] + "']");
 
-                if(checkThis && typeof checkThis[0] !== 'undefined')
-                {
-                    checkThis[0].checked=true;
+                if (checkThis && typeof checkThis[0] !== 'undefined') {
+                    $("#treeview").hummingbird("checkNode", { attr: "data-id", name: checkedArray[i], expandParents: true });
                 }
-
-                $("#treeview").hummingbird("expandNode",{attr:"data-id",name: checkedArray[i],expandParents:true});
-                //document.getElementById(checkedArray[i]).checked = true;
             }
+
+            $('#expandAll').on("click", function () {
+                $("#treeview").hummingbird('expandAll');
+            });
+            $('#collapseAll').on("click", function () {
+                $("#treeview").hummingbird('collapseAll');
+            });
+
+
+            $('#selectAll').on("click", function () {
+                $('#treeview').find(':checkbox').each(function () {
+                    $("#treeview").hummingbird("checkNode", { attr: "id", name: jQuery(this).attr('id'), expandParents: false });
+                });  
+            });
+
+            
+
+            $('#deselectAll').on("click", function () {
+                $('#treeview').find(':checkbox').each(function () {
+                    $("#treeview").hummingbird("uncheckNode", { attr: "id", name: jQuery(this).attr('id'), expandParents: false });
+                });  
+            });
 
         }
 
