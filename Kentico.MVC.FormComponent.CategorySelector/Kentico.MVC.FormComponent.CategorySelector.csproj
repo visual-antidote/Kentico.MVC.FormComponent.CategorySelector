@@ -546,6 +546,7 @@
   <ItemGroup>
     <Content Include="Content\FormComponents\CategorySelectComponent\hummingbird-treeview.css" />
     <Content Include="Content\FormComponents\CategorySelectComponent\hummingbird-treeview.js" />
+    <Content Include="images\va-nuget-logo.png" />
     <Content Include="SampleResource\SampleIncludedFile.txt" />
   </ItemGroup>
   <ItemGroup>

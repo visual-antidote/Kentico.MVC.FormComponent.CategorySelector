@@ -10,7 +10,7 @@
     // Prepares data that will be passed to the function that opens the modal dialog
     string dialogData = Newtonsoft.Json.JsonConvert.SerializeObject(new
     {
-        modalDialogUrl = Url.Action("Index", "CategorySelectModalDialog", new { IncludeSites = Model.IncludeSites, IncludeGlobalCategories = Model.IncludeGlobalCategories }),
+        modalDialogUrl = Url.Action("Index", "CategorySelectModalDialog", new { IncludeSites = Model.IncludeSites, IncludeGlobalCategories = Model.IncludeGlobalCategories, IncludeDisabledCategories = Model.IncludeDisabledCategories }),
         categoryInputId = Html.IdFor(m => m.CategoryCodeNameListAsText).ToHtmlString()
     });
 

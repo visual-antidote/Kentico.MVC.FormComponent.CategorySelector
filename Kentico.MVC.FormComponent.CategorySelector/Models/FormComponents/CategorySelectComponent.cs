@@ -61,6 +61,19 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
             }
         }
 
+        public bool IncludeDisabledCategories
+        {
+            get
+            {
+                if (this.Properties != null)
+                {
+                    return this.Properties.IncludeDisabledCategories;
+                }
+
+                return true;
+            }
+        }
+
         public override List<string> GetValue()
         {
             return _ConvertCategoryFieldToList();

@@ -28,6 +28,10 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
         [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Include Global categories", DefaultValue = true, Tooltip = "Include Global categories", ExplanationText = "Include Global categories", Order = -98)]
         public bool IncludeGlobalCategories { get; set; } = true;
 
-
+        /// <summary>
+        /// Include Disabled categories
+        /// </summary>
+        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Include Disabled categories", DefaultValue = false, Tooltip = "Include disabled categories", ExplanationText = "Include disabled categories", Order = -99)]
+        public bool IncludeDisabledCategories { get; set; } = false;
     }
 }

@@ -13,13 +13,13 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
 {
     public class CategorySelectModalDialogController : Controller
     {
-        public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true)
+        public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false)
         {
             CategorySelectModalDialogViewModel model = new CategorySelectModalDialogViewModel(new List<CategorySelectItemViewModel>());
 
             try
             {
-                var categoriesInHeirarchy = _LoadCategories(IncludeSites, IncludeGlobalCategories);
+                var categoriesInHeirarchy = _LoadCategories(IncludeSites, IncludeGlobalCategories, IncludeDisabledCategories);
 
                 model = new CategorySelectModalDialogViewModel(categoriesInHeirarchy);
             }
@@ -54,7 +54,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
             return lookup.Values.Where(x => x.Parent == null).ToList();
         }
 
-        private List<CategorySelectItemViewModel> _LoadCategories(List<string> IncludeSites, bool IncludeGlobalCategories)
+        private List<CategorySelectItemViewModel> _LoadCategories(List<string> IncludeSites, bool IncludeGlobalCategories, bool IncludeDisabledCategories)
         {
             List<CategorySelectItemViewModel> categoriesInHeirarchy = new List<CategorySelectItemViewModel>();
 
@@ -75,6 +75,10 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
 
                 var categoriesQuery = CategoryInfoProvider
                     .GetCategories();
+
+                if (!IncludeDisabledCategories) { 
+                    categoriesQuery = categoriesQuery.WhereEquals("CategoryEnabled", true);
+                }
 
                 categoriesQuery = categoriesQuery.WhereEquals("CategorySiteID", SiteContext.CurrentSiteID);
                 foreach (var siteC in siteFilterIDs)
