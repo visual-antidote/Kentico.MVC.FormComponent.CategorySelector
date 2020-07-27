@@ -39,7 +39,7 @@
             console.dir(inputElement);
             // Opens the modal dialog
             kentico.modalDialog.open({
-                url: dialogData.modalDialogUrl,
+                url: '@Url.Kentico().AuthenticateUrl(Url.Action("Index", "CategorySelectModalDialog", new { IncludeSites = Model.IncludeSites, IncludeGlobalCategories = Model.IncludeGlobalCategories, IncludeDisabledCategories = Model.IncludeDisabledCategories }))',
                 maximized: true,
                 applyCallback: function (dialogWindow) {
                     // Retrieves the selected value from the modal dialog

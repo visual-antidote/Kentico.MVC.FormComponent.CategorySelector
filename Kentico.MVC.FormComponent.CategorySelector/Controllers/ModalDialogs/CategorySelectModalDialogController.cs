@@ -11,6 +11,7 @@ using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.ModalDial
 
 namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.ModalDialogs
 {
+    [Authorize]
     public class CategorySelectModalDialogController : Controller
     {
         public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false)
