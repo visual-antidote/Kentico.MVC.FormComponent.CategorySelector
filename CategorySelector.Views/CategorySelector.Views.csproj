@@ -574,9 +574,9 @@
     <Folder Include="obj\Debug\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kentico.MVC.FormComponent.CategorySelector\Kentico.MVC.FormComponent.CategorySelector.csproj">
+    <ProjectReference Include="..\CategorySelector\CategorySelector.csproj">
       <Project>{60d45549-bb62-4999-8f29-987b58b33127}</Project>
-      <Name>Kentico.MVC.FormComponent.CategorySelector</Name>
+      <Name>CategorySelector</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
