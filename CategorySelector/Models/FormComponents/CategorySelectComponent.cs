@@ -1,9 +1,12 @@
-﻿using Kentico.Forms.Web.Mvc;
+﻿using CMS.SiteProvider;
+using CMS.Taxonomy;
+using Kentico.Forms.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents;
+using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Repository;
 
 [assembly: RegisterFormComponent(CategorySelectComponent.IDENTIFIER, typeof(CategorySelectComponent), "Category Select Form Component",
     IsAvailableInFormBuilderEditor = false, ViewName = "FormComponents/_CategorySelectComponent")]
@@ -100,10 +103,46 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            //var categoriesQuery = CategoryInfoProvider
-            //    .GetCategoriesDocumentsWhereCondition(_ConvertCategoryFieldToList(), true);
+            List<ValidationResult> baseValidationResults = base.Validate(validationContext).ToList();
 
-            return base.Validate(validationContext);
+            IEnumerable<string> checkedCatgoryList = _ConvertCategoryFieldToList();
+
+            var categoriesQuery = CategoryRepository.GenerateCategoryQuery(this.IncludeSites, this.IncludeGlobalCategories, this.IncludeDisabledCategories);
+
+            categoriesQuery = categoriesQuery
+                .WhereIn("CategoryName", checkedCatgoryList.ToList()); // Run the same query that loaded the liust for the UI, but now also compare to what the user entered.
+
+            var queriedCategoryList = categoriesQuery.ToList().Select(x => x.CategoryName);
+
+            // need to make sure that each checkedCatgoryList exists in the queriedCategoryList
+            var allOfListCheckedIsInListQueried = checkedCatgoryList.Intersect(queriedCategoryList).Count() == checkedCatgoryList.Count();
+
+            if(allOfListCheckedIsInListQueried == false)
+            {
+                var badQueryMsg = "Invalid categories. ";
+                if(this.IncludeGlobalCategories == false)
+                {
+                    badQueryMsg += "No global categories allowed. ";
+                }
+                if (this.IncludeDisabledCategories == false)
+                {
+                    badQueryMsg += "No disabled categories allowed. ";
+                }
+                if(!String.IsNullOrEmpty(this.IncludeSites))
+                {
+                    badQueryMsg += $"Must be from the following sites: {this.IncludeSites}. ";
+                }
+                else
+                {
+                    badQueryMsg += $"Only categories from {SiteContext.CurrentSiteName} are allowed.";
+                }
+
+                baseValidationResults.Add(new ValidationResult(badQueryMsg));
+            }    
+
+
+
+            return baseValidationResults;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CMS.EventLog;
 using CMS.SiteProvider;
 using CMS.Taxonomy;
+using Microsoft.Azure.Search;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,13 +11,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.ModalDialogs;
+using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Repository;
 
 namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.ModalDialogs
 {
     [Authorize]
     public class CategorySelectModalDialogController : Controller
     {
-        public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false, string CurrentCultureName="en-US")
+        public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false, string CurrentCultureName = "en-US")
         {
             CategorySelectModalDialogViewModel model = new CategorySelectModalDialogViewModel(new List<CategorySelectItemViewModel>());
 
@@ -71,38 +73,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
 
             try
             {
-                List<int> siteFilterIDs = new List<int>();
-                if (IncludeSites != null && IncludeSites.Count() > 0)
-                {
-                    foreach (var siteCodeName in IncludeSites)
-                    {
-                        var site = SiteInfoProvider.GetSiteInfo(siteCodeName);
-                        if (site != null)
-                        {
-                            siteFilterIDs.Add(site.SiteID);
-                        }
-                    }
-                }
-
-                var categoriesQuery = CategoryInfoProvider
-                    .GetCategories();
-
-                if (!IncludeDisabledCategories) { 
-                    categoriesQuery = categoriesQuery.WhereEquals("CategoryEnabled", true);
-                }
-
-                categoriesQuery = categoriesQuery.WhereEquals("CategorySiteID", SiteContext.CurrentSiteID);
-                foreach (var siteC in siteFilterIDs)
-                {
-                    categoriesQuery = categoriesQuery.Or().WhereEquals("CategorySiteID", siteC);
-                }
-
-                if (IncludeGlobalCategories)
-                {
-                    categoriesQuery = categoriesQuery.Or().WhereEquals("CategorySiteID", null); // Also get global categories
-                }
-
-                categoriesQuery = categoriesQuery.OrderBy("CategorySiteId", "CategoryLevel", "CategoryOrder");
+                var categoriesQuery = CategoryRepository.GenerateCategoryQuery(IncludeSites, IncludeGlobalCategories, IncludeGlobalCategories);
 
                 var categories = categoriesQuery.ToList()
                     .Select(x => new CategorySelectItemViewModel()
