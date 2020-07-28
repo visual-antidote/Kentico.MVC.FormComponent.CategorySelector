@@ -1,4 +1,5 @@
 ﻿@using Kentico.Components.Web.Mvc.Dialogs
+@using CMS.Helpers;
 
 @model VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.ModalDialogs.CategorySelectModalDialogViewModel
 
@@ -43,7 +44,7 @@
             <li data-id="@level">
                 <i class="@expandIconClass"></i>
                 <span @leafStyle></span><label>
-                    <input class="@endNodeClass" id="@c.GUID" name="categories-check-box" data-id="@c.CodeName" type="checkbox" /> @c.DisplayName
+                    <input class="@endNodeClass" id="@c.GUID" name="categories-check-box" data-id="@c.CodeName" type="checkbox" />@CMS.Helpers.ResHelper.LocalizeString(c.DisplayName)
                 </label>
 
                 @if (c.Categories != null && c.Categories.Count() > 0)
@@ -118,15 +119,15 @@
             $('#selectAll').on("click", function () {
                 $('#treeview').find(':checkbox').each(function () {
                     $("#treeview").hummingbird("checkNode", { attr: "id", name: jQuery(this).attr('id'), expandParents: false });
-                });  
+                });
             });
 
-            
+
 
             $('#deselectAll').on("click", function () {
                 $('#treeview').find(':checkbox').each(function () {
                     $("#treeview").hummingbird("uncheckNode", { attr: "id", name: jQuery(this).attr('id'), expandParents: false });
-                });  
+                });
             });
 
         }

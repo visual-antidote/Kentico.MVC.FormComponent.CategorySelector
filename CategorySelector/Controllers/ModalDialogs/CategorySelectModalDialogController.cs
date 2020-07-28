@@ -3,8 +3,10 @@ using CMS.SiteProvider;
 using CMS.Taxonomy;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.ModalDialogs;
@@ -14,12 +16,20 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
     [Authorize]
     public class CategorySelectModalDialogController : Controller
     {
-        public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false)
+        public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false, string CurrentCultureName="en-US")
         {
             CategorySelectModalDialogViewModel model = new CategorySelectModalDialogViewModel(new List<CategorySelectItemViewModel>());
 
             try
             {
+                // Creates a CultureInfo object from the culture code
+                var culture = new CultureInfo(CurrentCultureName);
+
+                // Sets the current culture for the MVC application
+                Thread.CurrentThread.CurrentUICulture = culture;
+                Thread.CurrentThread.CurrentCulture = culture;
+
+
                 var categoriesInHeirarchy = _LoadCategories(IncludeSites, IncludeGlobalCategories, IncludeDisabledCategories);
 
                 model = new CategorySelectModalDialogViewModel(categoriesInHeirarchy);
