@@ -2,9 +2,6 @@
 using Kentico.Forms.Web.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents
 {
@@ -25,7 +22,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
         /// <summary>
         /// Include Global categories
         /// </summary>
-        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Include Global categories", DefaultValue = true, Tooltip = "Include Global categories", ExplanationText = "Include Global categories", Order = -98)]
+        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Include Global categories", DefaultValue = true, Tooltip = "Include Global categories", ExplanationText = "Include global categories", Order = -98)]
         public bool IncludeGlobalCategories { get; set; } = true;
 
         /// <summary>
@@ -33,5 +30,17 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
         /// </summary>
         [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Include Disabled categories", DefaultValue = false, Tooltip = "Include disabled categories", ExplanationText = "Include disabled categories", Order = -99)]
         public bool IncludeDisabledCategories { get; set; } = false;
+
+        /// <summary>
+        /// Minimum number of selected categories
+        /// </summary>
+        [EditingComponent(IntInputComponent.IDENTIFIER, Label = "Minimum number of categories", DefaultValue = 0, Tooltip = "At least this many categories must be selected", ExplanationText = "Invalid if the number of selected categories is less than this..", Order = -100)]
+        public int? MinimumSelectedCategoryNumber { get; set; } = 0;
+
+        /// <summary>
+        /// Maximum number of selected categories
+        /// </summary>
+        [EditingComponent(IntInputComponent.IDENTIFIER, Label = "Maximum number of categories", DefaultValue = null, Tooltip = "At most this many categories can be selected", ExplanationText = "Invalid if the number of selected categories is more than this.", Order = -101)]
+        public int? MaximumSelectedCategoryNumber { get; set; } = null;
     }
 }

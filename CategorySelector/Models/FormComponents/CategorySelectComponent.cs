@@ -50,7 +50,6 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
             }
         }
 
-
         public bool IncludeGlobalCategories
         {
             get
@@ -74,6 +73,32 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
                 }
 
                 return true;
+            }
+        }
+
+        public int? MinimumSelectedCategoryNumber
+        {
+            get
+            {
+                if (this.Properties != null)
+                {
+                    return this.Properties.MinimumSelectedCategoryNumber;
+                }
+
+                return null;
+            }
+        }
+
+        public int? MaximumSelectedCategoryNumber
+        {
+            get
+            {
+                if (this.Properties != null)
+                {
+                    return this.Properties.MaximumSelectedCategoryNumber;
+                }
+
+                return null;
             }
         }
 
@@ -138,8 +163,27 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
                 }
 
                 baseValidationResults.Add(new ValidationResult(badQueryMsg));
-            }    
+            }
 
+            var selectedCount = checkedCatgoryList.Count();
+
+
+            if (MinimumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.Value == MinimumSelectedCategoryNumber.Value)
+            {
+                baseValidationResults.Add(new ValidationResult($"Exactly {MinimumSelectedCategoryNumber.Value} categories required. "));
+            }
+            else
+            {
+                if (MinimumSelectedCategoryNumber.HasValue && (selectedCount < MinimumSelectedCategoryNumber.Value))
+                {
+                    baseValidationResults.Add(new ValidationResult($"At least {MinimumSelectedCategoryNumber.Value} categories required. "));
+                }
+
+                if (MaximumSelectedCategoryNumber.HasValue && (selectedCount > MaximumSelectedCategoryNumber.Value))
+                {
+                    baseValidationResults.Add(new ValidationResult($"At most {MaximumSelectedCategoryNumber.Value} categories allowed. "));
+                }
+            }
 
 
             return baseValidationResults;
