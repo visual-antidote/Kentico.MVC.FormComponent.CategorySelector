@@ -33,5 +33,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.Modal
         public bool IsError { get; set; } = false;
         public string ErrorMessage { get; set; }
         public IList<CategorySelectItemViewModel> Categories { get; internal set; }
+        public int? MinimumSelectedCategoryNumber { get; set; }
+        public int? MaximumSelectedCategoryNumber { get; set; }
     }
 }

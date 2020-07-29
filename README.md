@@ -117,3 +117,17 @@ By default, only the current site's categories are displayed.
   
 
     [EditingComponentProperty(nameof(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectProperties.IncludeSites), "SiteOneCode, SiteTwoCode")]
+
+
+### Restrict number of selected categories
+
+You can set a minumum and maximum number of required categories. 
+
+  
+
+By default, there is no minimum and maximum restriction
+
+  
+
+    [EditingComponentProperty(nameof(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectProperties.MinimumSelectedCategoryNumber), 2)]
+    [EditingComponentProperty(nameof(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectProperties.MaximumSelectedCategoryNumber), 4)]

@@ -18,7 +18,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
     [Authorize]
     public class CategorySelectModalDialogController : Controller
     {
-        public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false, string CurrentCultureName = "en-US")
+        public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false, string CurrentCultureName = "en-US", int? MinimumSelectedCategoryNumber = null, int? MaximumSelectedCategoryNumber = null)
         {
             CategorySelectModalDialogViewModel model = new CategorySelectModalDialogViewModel(new List<CategorySelectItemViewModel>());
 
@@ -35,6 +35,8 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
                 var categoriesInHeirarchy = _LoadCategories(IncludeSites, IncludeGlobalCategories, IncludeDisabledCategories);
 
                 model = new CategorySelectModalDialogViewModel(categoriesInHeirarchy);
+                model.MinimumSelectedCategoryNumber = MinimumSelectedCategoryNumber;
+                model.MaximumSelectedCategoryNumber = MaximumSelectedCategoryNumber;
             }
             catch (Exception ex)
             {

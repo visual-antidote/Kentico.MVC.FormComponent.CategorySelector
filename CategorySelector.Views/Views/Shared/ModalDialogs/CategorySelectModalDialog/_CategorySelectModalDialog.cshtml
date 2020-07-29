@@ -80,6 +80,21 @@
 
     <button class="btn btn-responsive  btn-primary" id="deselectAll">Deselect All</button>
 
+    @{
+        if (Model.MinimumSelectedCategoryNumber.HasValue && Model.MaximumSelectedCategoryNumber.HasValue)
+        {
+            <h3>Please select between @Model.MinimumSelectedCategoryNumber.Value and @Model.MaximumSelectedCategoryNumber.Value categories</h3>
+        }
+        else if (Model.MinimumSelectedCategoryNumber.HasValue)
+        {
+            <h3>Please select at least @Model.MinimumSelectedCategoryNumber.Value categories</h3>
+        }
+        else if (Model.MaximumSelectedCategoryNumber.HasValue)
+        {
+            <h3>Please select up to @Model.MaximumSelectedCategoryNumber.Value categories</h3>
+        }
+    }
+
     <form action="">
         <div id="treeview_container" class="hummingbird-treeview" style="overflow-y: scroll;">
             @GenerateCategoryList(Model.Categories)
@@ -90,7 +105,8 @@
         Gets the value from the data passed when the 'kentico.modalDialog.open' function is called *@
     <script type="text/javascript">
 
-
+        var minimumCategories = @Model.MinimumSelectedCategoryNumber.GetValueOrDefault(-1);
+        var maximumCategories = @Model.MaximumSelectedCategoryNumber.GetValueOrDefault(-1);
 
         function customFunction() {
 
@@ -128,6 +144,16 @@
                 $('#treeview').find(':checkbox').each(function () {
                     $("#treeview").hummingbird("uncheckNode", { attr: "id", name: jQuery(this).attr('id'), expandParents: false });
                 });
+            });
+
+            $("#treeview").on("nodeChecked", function () {
+                //let List = { "id": [], "dataid": [], "text": [] };
+                //$("#treeview").hummingbird("getChecked", { list: List, onlyEndNodes: false, onlyParents: false, fromThis: false });
+                //let listCount = List.id.length;
+
+                //if (listCount >= maximumCategories) {
+
+                //}
             });
 
         }
