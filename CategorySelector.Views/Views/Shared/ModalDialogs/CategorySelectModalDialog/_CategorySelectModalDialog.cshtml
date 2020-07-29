@@ -90,7 +90,7 @@
         {
             <h3>Please select between @Model.MinimumSelectedCategoryNumber.Value and @Model.MaximumSelectedCategoryNumber.Value categories</h3>
         }
-        else if (Model.MinimumSelectedCategoryNumber.HasValue)
+        else if (Model.MinimumSelectedCategoryNumber.HasValue && Model.MinimumSelectedCategoryNumber.Value > 0)
         {
             <h3>Please select at least @Model.MinimumSelectedCategoryNumber.Value categories</h3>
         }
@@ -155,22 +155,36 @@
                 });
             });
 
-            let categoryErrorMessageElement = window.document.querySelector('#category-select-modal-error');
-            $("#treeview").on("CheckUncheckDone", function () {
-                let List = { "id": [], "dataid": [], "text": [] };
-                $("#treeview").hummingbird("getChecked", { list: List, onlyEndNodes: false, onlyParents: false, fromThis: false });
-                let listCount = List.id.length;
 
-                categoryErrorMessageElement.innerHTML = '';
-                if (listCount >= maximumCategories) {
-                    categoryErrorMessageElement.innerHTML += "Maximum categories selected. ";
-                    SetStateOfUncheckedNodes(false);
-                }
-                else {
-                    SetStateOfUncheckedNodes(true);
-                }
-            });
+            // Do validation on max categories only if max is set (-1 if not set)
+            if (maximumCategories > -1) {
 
+                // Check validation upon selection change.
+                $("#treeview").on("CheckUncheckDone", function () {
+                    ValidateMaxCategorySelection();
+                });
+
+                ValidateMaxCategorySelection(); // Run validation on load.
+            }
+
+        }
+
+        let categoryErrorMessageElement = window.document.querySelector('#category-select-modal-error');
+
+        function ValidateMaxCategorySelection() {
+            let List = { "id": [], "dataid": [], "text": [] };
+            // Get total number of categories checked already
+            $("#treeview").hummingbird("getChecked", { list: List, onlyEndNodes: false, onlyParents: false, fromThis: false });
+            let listCount = List.id.length;
+
+            categoryErrorMessageElement.innerHTML = '';
+            if (listCount >= maximumCategories) {
+                categoryErrorMessageElement.innerHTML += "Maximum categories selected. ";
+                SetStateOfUncheckedNodes(false);
+            }
+            else {
+                SetStateOfUncheckedNodes(true);
+            }
         }
 
         function SetStateOfUncheckedNodes(enable) {
