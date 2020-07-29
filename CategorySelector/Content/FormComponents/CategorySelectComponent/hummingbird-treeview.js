@@ -298,7 +298,8 @@
 				//three state logic
 				//$.fn.hummingbird.ThreeStateLogic($(this),doubleMode,allVariables,options.checkDoubles,options.checkDisabled);		
 				//$.fn.hummingbird.ThreeStateLogic($(this), doubleMode, allVariables, options.checkDoubles, checkDisabled);
-
+				$.fn.hummingbird.FireCheckEvent($(this), doubleMode, allVariables, options.checkDoubles, checkDisabled);
+				
 				//expandSingle and check if options.singleGroupOpen is set
 				var tmp_tree = $(this);
 				$(this).on("click", 'li i.' + options.collapsedSymbol, function () {
@@ -850,9 +851,9 @@
 		}
 		//for a disabled unchecked node, set node checked and then trigger a click to uncheck
 		//for a disabled checked node, set node unchecked and then trigger a click to check
-		this_checkbox.prop("checked", state === false);
+		//this_checkbox.prop("checked", state === false);
 		nodeDisabled = true;
-		this_checkbox.trigger("click");
+		//this_checkbox.trigger("click");
 		//disable this node and all children
 		if (disableChildren === true) {
 			//this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",true).parent("label").parent("li").css({'color':'#c8c8c8',"cursor":"not-allowed"});
@@ -898,9 +899,9 @@
 			//this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled",false).parent("label").parent("li").css({'color':'black',"cursor":"default"});
 			this_checkbox.parent("label").parent("li").find('input:checkbox').prop("disabled", false).parent("label").css({ 'color': 'black', "cursor": "default" });
 		}
-		this_checkbox.prop("checked", state === false);
+		//this_checkbox.prop("checked", state === false);
 		nodeEnabled = true;
-		this_checkbox.trigger("click");
+		//this_checkbox.trigger("click");
 	};
 
 	//--------------get all checked items------------------//
@@ -976,6 +977,14 @@
 	$.fn.hummingbird.setNodeColor = function (tree, attr, ID, color) {
 		tree.find('input:checkbox[' + attr + '=' + ID + ']').parent("li").css({ 'color': color });
 	};
+
+	$.fn.hummingbird.FireCheckEvent = function (tree, doubleMode, allVariables, checkDoubles, checkDisabled) {
+		tree.find('input:checkbox').on('click', function (e) {
+
+			//fire event
+			tree.trigger("CheckUncheckDone");
+		});
+	}
 
 	//--------------three-state-logic----------------------//
 	$.fn.hummingbird.ThreeStateLogic = function (tree, doubleMode, allVariables, checkDoubles, checkDisabled) {

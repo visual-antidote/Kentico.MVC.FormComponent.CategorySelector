@@ -63,6 +63,11 @@
 <head>
     @Html.Kentico().ModalDialogScript()
     <meta name="viewport" content="width=device-width" />
+    <style>
+        body {
+            font-family: Arial;
+        }
+    </style>
 </head>
 <body>
 
@@ -94,6 +99,10 @@
             <h3>Please select up to @Model.MaximumSelectedCategoryNumber.Value categories</h3>
         }
     }
+
+    <div id="category-select-modal-error" style="color:red;">
+
+    </div>
 
     <form action="">
         <div id="treeview_container" class="hummingbird-treeview" style="overflow-y: scroll;">
@@ -146,16 +155,34 @@
                 });
             });
 
-            $("#treeview").on("nodeChecked", function () {
-                //let List = { "id": [], "dataid": [], "text": [] };
-                //$("#treeview").hummingbird("getChecked", { list: List, onlyEndNodes: false, onlyParents: false, fromThis: false });
-                //let listCount = List.id.length;
+            let categoryErrorMessageElement = window.document.querySelector('#category-select-modal-error');
+            $("#treeview").on("CheckUncheckDone", function () {
+                let List = { "id": [], "dataid": [], "text": [] };
+                $("#treeview").hummingbird("getChecked", { list: List, onlyEndNodes: false, onlyParents: false, fromThis: false });
+                let listCount = List.id.length;
 
-                //if (listCount >= maximumCategories) {
-
-                //}
+                categoryErrorMessageElement.innerHTML = '';
+                if (listCount >= maximumCategories) {
+                    categoryErrorMessageElement.innerHTML += "Maximum categories selected. ";
+                    SetStateOfUncheckedNodes(false);
+                }
+                else {
+                    SetStateOfUncheckedNodes(true);
+                }
             });
 
+        }
+
+        function SetStateOfUncheckedNodes(enable) {
+            let stateFunction = "disableNode";
+            if (enable) {
+                stateFunction = "enableNode"
+            }
+            var ListUnchecked = { "id": [], "dataid": [], "text": [] };
+            $("#treeview").hummingbird("getUnchecked", { list: ListUnchecked, onlyEndNodes: false, onlyParents: false });
+            for (const nodeId of ListUnchecked.id) {
+                $("#treeview").hummingbird(stateFunction, { attr: "id", name: nodeId, state: false, disableChildren: false });
+            }
         }
 
         if (document.readyState === "loading") {
