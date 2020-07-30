@@ -1,4 +1,5 @@
-﻿using CMS.SiteProvider;
+﻿using CMS.EventLog;
+using CMS.SiteProvider;
 using CMS.Taxonomy;
 using Kentico.Forms.Web.Mvc;
 using System;
@@ -130,61 +131,68 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
         {
             List<ValidationResult> baseValidationResults = base.Validate(validationContext).ToList();
 
-            IEnumerable<string> checkedCatgoryList = _ConvertCategoryFieldToList();
-
-            var categoriesQuery = CategoryRepository.GenerateCategoryQuery(this.IncludeSites, this.IncludeGlobalCategories, this.IncludeDisabledCategories);
-
-            categoriesQuery = categoriesQuery
-                .WhereIn("CategoryName", checkedCatgoryList.ToList()); // Run the same query that loaded the liust for the UI, but now also compare to what the user entered.
-
-            var queriedCategoryList = categoriesQuery.ToList().Select(x => x.CategoryName);
-
-            // need to make sure that each checkedCatgoryList exists in the queriedCategoryList
-            var allOfListCheckedIsInListQueried = checkedCatgoryList.Intersect(queriedCategoryList).Count() == checkedCatgoryList.Count();
-
-            if(allOfListCheckedIsInListQueried == false)
+            try
             {
-                var badQueryMsg = "Invalid categories. ";
-                if(this.IncludeGlobalCategories == false)
+
+                IEnumerable<string> checkedCatgoryList = _ConvertCategoryFieldToList();
+
+                var categoriesQuery = CategoryRepository.GenerateCategoryQuery(this.IncludeSites, this.IncludeGlobalCategories, this.IncludeDisabledCategories);
+
+                categoriesQuery = categoriesQuery
+                    .WhereIn("CategoryName", checkedCatgoryList.ToList()); // Run the same query that loaded the liust for the UI, but now also compare to what the user entered.
+
+                var queriedCategoryList = categoriesQuery.ToList().Select(x => x.CategoryName);
+
+                // need to make sure that each checkedCatgoryList exists in the queriedCategoryList
+                var allOfListCheckedIsInListQueried = checkedCatgoryList.Intersect(queriedCategoryList).Count() == checkedCatgoryList.Count();
+
+                if (allOfListCheckedIsInListQueried == false)
                 {
-                    badQueryMsg += "No global categories allowed. ";
+                    var badQueryMsg = "Invalid categories. ";
+                    if (this.IncludeGlobalCategories == false)
+                    {
+                        badQueryMsg += "No global categories allowed. ";
+                    }
+                    if (this.IncludeDisabledCategories == false)
+                    {
+                        badQueryMsg += "No disabled categories allowed. ";
+                    }
+                    if (!String.IsNullOrEmpty(this.IncludeSites))
+                    {
+                        badQueryMsg += $"Must be from the following sites: {this.IncludeSites}. ";
+                    }
+                    else
+                    {
+                        badQueryMsg += $"Only categories from {SiteContext.CurrentSiteName} are allowed.";
+                    }
+
+                    baseValidationResults.Add(new ValidationResult(badQueryMsg));
                 }
-                if (this.IncludeDisabledCategories == false)
+
+                var selectedCount = checkedCatgoryList.Count();
+
+
+                if (MinimumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.Value == MinimumSelectedCategoryNumber.Value)
                 {
-                    badQueryMsg += "No disabled categories allowed. ";
-                }
-                if(!String.IsNullOrEmpty(this.IncludeSites))
-                {
-                    badQueryMsg += $"Must be from the following sites: {this.IncludeSites}. ";
+                    baseValidationResults.Add(new ValidationResult($"Exactly {MinimumSelectedCategoryNumber.Value} categories required. "));
                 }
                 else
                 {
-                    badQueryMsg += $"Only categories from {SiteContext.CurrentSiteName} are allowed.";
+                    if (MinimumSelectedCategoryNumber.HasValue && (selectedCount < MinimumSelectedCategoryNumber.Value))
+                    {
+                        baseValidationResults.Add(new ValidationResult($"At least {MinimumSelectedCategoryNumber.Value} categories required. "));
+                    }
+
+                    if (MaximumSelectedCategoryNumber.HasValue && (selectedCount > MaximumSelectedCategoryNumber.Value))
+                    {
+                        baseValidationResults.Add(new ValidationResult($"At most {MaximumSelectedCategoryNumber.Value} categories allowed. "));
+                    }
                 }
-
-                baseValidationResults.Add(new ValidationResult(badQueryMsg));
             }
-
-            var selectedCount = checkedCatgoryList.Count();
-
-
-            if (MinimumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.Value == MinimumSelectedCategoryNumber.Value)
+            catch(Exception ex)
             {
-                baseValidationResults.Add(new ValidationResult($"Exactly {MinimumSelectedCategoryNumber.Value} categories required. "));
+                EventLogProvider.LogException("VisualAntidote.CategorySelectComponent", "Error", ex);
             }
-            else
-            {
-                if (MinimumSelectedCategoryNumber.HasValue && (selectedCount < MinimumSelectedCategoryNumber.Value))
-                {
-                    baseValidationResults.Add(new ValidationResult($"At least {MinimumSelectedCategoryNumber.Value} categories required. "));
-                }
-
-                if (MaximumSelectedCategoryNumber.HasValue && (selectedCount > MaximumSelectedCategoryNumber.Value))
-                {
-                    baseValidationResults.Add(new ValidationResult($"At most {MaximumSelectedCategoryNumber.Value} categories allowed. "));
-                }
-            }
-
 
             return baseValidationResults;
         }

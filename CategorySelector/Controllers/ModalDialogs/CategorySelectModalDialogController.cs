@@ -22,34 +22,40 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
         {
             CategorySelectModalDialogViewModel model = new CategorySelectModalDialogViewModel(new List<CategorySelectItemViewModel>());
 
-            try
+            // Only allow via ajax requests.
+            // if (Request.IsAjaxRequest())
             {
-                // Creates a CultureInfo object from the culture code
-                var culture = new CultureInfo(CurrentCultureName);
+                try
+                {
+                    // Creates a CultureInfo object from the culture code
+                    var culture = new CultureInfo(CurrentCultureName);
 
-                // Sets the current culture for the MVC application
-                Thread.CurrentThread.CurrentUICulture = culture;
-                Thread.CurrentThread.CurrentCulture = culture;
+                    // Sets the current culture for the MVC application
+                    Thread.CurrentThread.CurrentUICulture = culture;
+                    Thread.CurrentThread.CurrentCulture = culture;
 
 
-                var categoriesInHeirarchy = _LoadCategories(IncludeSites, IncludeGlobalCategories, IncludeDisabledCategories);
+                    var categoriesInHeirarchy = _LoadCategories(IncludeSites, IncludeGlobalCategories, IncludeDisabledCategories);
 
-                model = new CategorySelectModalDialogViewModel(categoriesInHeirarchy);
-                model.MinimumSelectedCategoryNumber = MinimumSelectedCategoryNumber;
-                model.MaximumSelectedCategoryNumber = MaximumSelectedCategoryNumber;
+                    model = new CategorySelectModalDialogViewModel(categoriesInHeirarchy);
+                    model.MinimumSelectedCategoryNumber = MinimumSelectedCategoryNumber;
+                    model.MaximumSelectedCategoryNumber = MaximumSelectedCategoryNumber;
+                }
+                catch (Exception ex)
+                {
+                    model.IsError = true;
+                    model.ErrorMessage = "Error loading categories. Please check the Event Log for more details.";
+                    EventLogProvider.LogException("VisualAntidote.CategorySelectModalDialogController", "Error", ex);
+                }
+
+
+                // Return PartialView instead of View or else you get this error: The model item passed into the dictionary is of type 'Models.ModalDialogs.ColorModalDialogViewModel', but this dictionary requires a model item of type 'MedioClinic.Models.PageViewModel'.
+                // That is because the normal view uses the _Layout which assumes uses of the PageViewModel object
+                // We don't need the full view here, just the stand-alone modal dialog
+                return PartialView("ModalDialogs/CategorySelectModalDialog/_CategorySelectModalDialog", model);
             }
-            catch (Exception ex)
-            {
-                model.IsError = true;
-                model.ErrorMessage = "Error loading categories. Please check the Event Log for more details.";
-                EventLogProvider.LogException("CategorySelectModalDialogController", "Error", ex);
-            }
 
-
-            // Return PartialView instead of View or else you get this error: The model item passed into the dictionary is of type 'Models.ModalDialogs.ColorModalDialogViewModel', but this dictionary requires a model item of type 'MedioClinic.Models.PageViewModel'.
-            // That is because the normal view uses the _Layout which assumes uses of the PageViewModel object
-            // We don't need the full view here, just the stand-alone modal dialog
-            return PartialView("ModalDialogs/CategorySelectModalDialog/_CategorySelectModalDialog", model);
+            return HttpNotFound();
         }
 
 

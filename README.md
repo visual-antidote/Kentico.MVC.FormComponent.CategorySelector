@@ -1,4 +1,5 @@
 
+
 # *** BETA ***
 This project is currently in development.
 
@@ -36,14 +37,11 @@ Since this package is hosted in a user-created Azure Artifact Feed, and not the 
   
 
 1. In Visual Studio. Navigate to `Tools > NuGet Package Manager > Manage Nuget Packages for Solution...`
+2. Click on the gear icon in the top right corner
 
-  
+3. Click the green + icon to add a new package source
 
-3. Click on the gear icon in the top right corner
-
-4. Click the green + icon to add a new package source
-
-5. Enter the Name and Source from the Azure Feed: [VA Test Feed](https://pkgs.dev.azure.com/vasandbox/0675b2f1-7fa9-4bd4-9472-5e8ff3b5f45e/_packaging/VATestFeed/nuget/v3/index.json)
+4. Enter the Name and Source from the Azure Feed: [VA Test Feed](https://pkgs.dev.azure.com/vasandbox/0675b2f1-7fa9-4bd4-9472-5e8ff3b5f45e/_packaging/VATestFeed/nuget/v3/index.json) (right-click and select 'Copy link address')
 
 6. Click Update
 
@@ -121,7 +119,7 @@ By default, only the current site's categories are displayed.
 
 ### Restrict number of selected categories
 
-You can set a minumum and maximum number of required categories. 
+You can set a minimum and maximum number of required categories. 
 
   
 
@@ -131,3 +129,39 @@ By default, there is no minimum and maximum restriction
 
     [EditingComponentProperty(nameof(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectProperties.MinimumSelectedCategoryNumber), 2)]
     [EditingComponentProperty(nameof(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectProperties.MaximumSelectedCategoryNumber), 4)]
+
+# License
+
+This project is build under the MIT license. Check the LICENSE file for more information.
+
+# Development
+This project used the [Shareable Component Boilerplate](https://github.com/KenticoDevTrev/ShareableComponentBoilerplate) as a starting point.
+
+If you would like to clone/fork this project, follow these steps*:
+
+1. Clone this project onto your computer.
+2.  Open the Solution file, right click on your solution and Clean Solution
+3.  Rebuild your solution
+
+-   note, if you get a `Roslyn.exe` error, clean and build the Views Web App separately, this sometimes happens
+
+### (optional) Add to your Kentico Instance
+[See instructions here](https://github.com/KenticoDevTrev/ShareableComponentBoilerplate#optional-add-to-your-kentico-instance)
+
+### Developing your own fork
+If you would like to fork this project and create your own nuget packages from the compiled project, follow these steps:
+1. Update the `Kentico.MVC.FormComponent.CategorySelector.nuspec` file in the `CategorySelector` folder with the details required.
+2. Update the project's version number (make sure this is done before compilation)
+	a. Right-click on the `CategorySelector` project and select Properties 
+	b. Click the `Application` tab
+	c. Click the `Assembly information` button
+	d. Update the Assembly and File versions as required
+3. Compile the project in Release mode
+4. Run the `BuildPackage.bat` batch file (found in the `CategorySelector` folder)
+5. A new `.nupkg` file is generated in the current folder. Upload this package to your desired repository (i.e. nuget.org, Azure DevOps Artifact Feeds, etc...)
+
+*It is recommended to first familiarize yourself with the [Shareable Component Boilerplate](https://github.com/KenticoDevTrev/ShareableComponentBoilerplate).
+
+## Compatibility
+
+Can be used on any Kentico 12 SP site (hotfix 29 or above).

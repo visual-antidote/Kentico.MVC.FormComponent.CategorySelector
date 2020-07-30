@@ -3,15 +3,6 @@
 
 @model VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.ModalDialogs.CategorySelectModalDialogViewModel
 
-<!-- Required Stylesheets -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="~/Content/FormComponents/CategorySelectComponent/hummingbird-treeview.css" rel="stylesheet">
-
-
-<!-- Required Javascript -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="~/Content/FormComponents/CategorySelectComponent/hummingbird-treeview.js"></script>
-
 
 @helper GenerateCategoryList(IList<VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.ModalDialogs.CategorySelectItemViewModel> categories, int level = 1)
 {
@@ -62,6 +53,18 @@
 <html>
 <head>
     @Html.Kentico().ModalDialogScript()
+
+    <!-- Required Stylesheets -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/FormComponents/CategorySelectComponent/hummingbird-treeview.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Required Javascript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="~/Content/FormComponents/CategorySelectComponent/hummingbird-treeview.js"></script>
+
+
+
     <meta name="viewport" content="width=device-width" />
     <style>
         body {
@@ -69,7 +72,7 @@
         }
     </style>
 </head>
-<body>
+<body style="padding:20px;">
 
     @if (Model.IsError)
     {
@@ -88,19 +91,23 @@
     @{
         if (Model.MinimumSelectedCategoryNumber.HasValue && Model.MaximumSelectedCategoryNumber.HasValue)
         {
-            <h3>Please select between @Model.MinimumSelectedCategoryNumber.Value and @Model.MaximumSelectedCategoryNumber.Value categories</h3>
+            <h5>Please select between @Model.MinimumSelectedCategoryNumber.Value and @Model.MaximumSelectedCategoryNumber.Value categories</h5>
         }
         else if (Model.MinimumSelectedCategoryNumber.HasValue && Model.MinimumSelectedCategoryNumber.Value > 0)
         {
-            <h3>Please select at least @Model.MinimumSelectedCategoryNumber.Value categories</h3>
+            <h5>Please select at least @Model.MinimumSelectedCategoryNumber.Value categories</h5>
         }
         else if (Model.MaximumSelectedCategoryNumber.HasValue)
         {
-            <h3>Please select up to @Model.MaximumSelectedCategoryNumber.Value categories</h3>
+            <h5>Please select up to @Model.MaximumSelectedCategoryNumber.Value categories</h5>
         }
     }
 
-    <div id="category-select-modal-error" style="color:red;">
+    <div class="alert alert-info" style="color:navy;">
+        <span id="category-select-modal-number-selected"></span> categories selected
+    </div>
+
+    <div class="alert alert-danger" id="category-select-modal-error" style="color:red;">
 
     </div>
 
@@ -133,60 +140,80 @@
                 }
             }
 
+            // Set up the button that expands all nodes in the entire category tree
             $('#expandAll').on("click", function () {
                 $("#treeview").hummingbird('expandAll');
             });
+
+            // Set up the button that collapses all nodes in the entire category tree
             $('#collapseAll').on("click", function () {
                 $("#treeview").hummingbird('collapseAll');
             });
 
-
+            // Set up the button that selects(checks) all nodes in the entire category tree
             $('#selectAll').on("click", function () {
                 $('#treeview').find(':checkbox').each(function () {
                     $("#treeview").hummingbird("checkNode", { attr: "id", name: jQuery(this).attr('id'), expandParents: false });
                 });
             });
 
-
-
+            // Set up the button that deselects(unchecks) all nodes in the entire category tree
             $('#deselectAll').on("click", function () {
                 $('#treeview').find(':checkbox').each(function () {
                     $("#treeview").hummingbird("uncheckNode", { attr: "id", name: jQuery(this).attr('id'), expandParents: false });
                 });
             });
 
+            // Check validation upon selection change.
+            $("#treeview").on("CheckUncheckDone", function () {
+                ValidateCategorySelection();
+            });
 
-            // Do validation on max categories only if max is set (-1 if not set)
-            if (maximumCategories > -1) {
-
-                // Check validation upon selection change.
-                $("#treeview").on("CheckUncheckDone", function () {
-                    ValidateMaxCategorySelection();
-                });
-
-                ValidateMaxCategorySelection(); // Run validation on load.
-            }
+            ValidateCategorySelection(); // Run validation on load.
 
         }
 
         let categoryErrorMessageElement = window.document.querySelector('#category-select-modal-error');
 
-        function ValidateMaxCategorySelection() {
-            let List = { "id": [], "dataid": [], "text": [] };
-            // Get total number of categories checked already
-            $("#treeview").hummingbird("getChecked", { list: List, onlyEndNodes: false, onlyParents: false, fromThis: false });
-            let listCount = List.id.length;
+        function ValidateCategorySelection() {
+            // Do validation on max categories only if max is set (-1 if not set)
+            if (maximumCategories > -1 || minimumCategories > -1) {
+                let List = { "id": [], "dataid": [], "text": [] };
+                // Get total number of categories checked already
+                $("#treeview").hummingbird("getChecked", { list: List, onlyEndNodes: false, onlyParents: false, fromThis: false });
+                let listCount = List.id.length;
 
-            categoryErrorMessageElement.innerHTML = '';
-            if (listCount >= maximumCategories) {
-                categoryErrorMessageElement.innerHTML += "Maximum categories selected. ";
-                SetStateOfUncheckedNodes(false);
-            }
-            else {
-                SetStateOfUncheckedNodes(true);
+                // update selected count
+                categorySelectedCountElement = window.document.querySelector('#category-select-modal-number-selected');
+                categorySelectedCountElement.innerHTML = listCount;
+
+                // reset error message
+                categoryErrorMessageElement.innerHTML = '';
+                categoryErrorMessageElement.style.display = "none";
+
+                // Validate max
+                if (maximumCategories > -1) {
+                    if (listCount >= maximumCategories) {
+                        categoryErrorMessageElement.style.display = "block";
+                        categoryErrorMessageElement.innerHTML += "Maximum categories selected. ";
+                        SetStateOfUncheckedNodes(false);
+                    }
+                    else {
+                        SetStateOfUncheckedNodes(true);
+                    }
+                }
+
+                if (minimumCategories > -1) {
+                    if (listCount < minimumCategories) {
+                        categoryErrorMessageElement.style.display = "block";
+                        categoryErrorMessageElement.innerHTML += "Must select at least " + minimumCategories + ". ";
+                    }
+                }
             }
         }
 
+        // Go through all unchecked nodes and enable/disable them. 
+        // This is used when the maximum number of selections have been made to prevent user from going over. (Server-side validation still takes place.)
         function SetStateOfUncheckedNodes(enable) {
             let stateFunction = "disableNode";
             if (enable) {
