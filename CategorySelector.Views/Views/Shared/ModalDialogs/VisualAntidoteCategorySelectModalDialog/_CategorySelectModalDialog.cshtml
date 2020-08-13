@@ -35,7 +35,7 @@
             <li data-id="@level">
                 <i class="@expandIconClass"></i>
                 <span @leafStyle></span><label>
-                    <input class="@endNodeClass" id="@c.GUID" name="categories-check-box" data-id="@c.CodeName" type="checkbox" />@CMS.Helpers.ResHelper.LocalizeString(c.DisplayName)
+                    <input class="@endNodeClass" id="@c.GUID" name="categories-check-box" data-id="@c.CodeName" type="checkbox" style="margin-right: 5px;" />@CMS.Helpers.ResHelper.LocalizeString(c.DisplayName)
                 </label>
 
                 @if (c.Categories != null && c.Categories.Count() > 0)
@@ -102,8 +102,7 @@
             <h5>Please select up to @Model.MaximumSelectedCategoryNumber.Value categories</h5>
         }
     }
-
-    <div class="alert alert-info" style="color:navy;">
+    <div class="alert alert-info" style="color:navy;margin-top:10px;">
         <span id="category-select-modal-number-selected"></span> categories selected
     </div>
 
@@ -112,7 +111,7 @@
     </div>
 
     <form action="">
-        <div id="treeview_container" class="hummingbird-treeview" style="overflow-y: scroll;">
+        <div id="treeview_container" class="hummingbird-treeview" style="overflow-y: visible;">
             @GenerateCategoryList(Model.Categories)
         </div>
     </form>

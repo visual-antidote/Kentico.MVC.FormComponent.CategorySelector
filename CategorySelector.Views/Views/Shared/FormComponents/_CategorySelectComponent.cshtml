@@ -10,7 +10,7 @@
     // Prepares data that will be passed to the function that opens the modal dialog
     string dialogData = Newtonsoft.Json.JsonConvert.SerializeObject(new
     {
-        modalDialogUrl = Url.Action("Index", "CategorySelectModalDialog", new { IncludeSites = Model.IncludeSites, IncludeGlobalCategories = Model.IncludeGlobalCategories, IncludeDisabledCategories = Model.IncludeDisabledCategories }),
+        modalDialogUrl = Url.Action("Index", "VisualAntidoteCategorySelectModalDialog", new { IncludeSites = Model.IncludeSites, IncludeGlobalCategories = Model.IncludeGlobalCategories, IncludeDisabledCategories = Model.IncludeDisabledCategories }),
         categoryInputId = Html.IdFor(m => m.CategoryCodeNameListAsText).ToHtmlString()
     });
 
@@ -39,7 +39,7 @@
             console.dir(inputElement);
             // Opens the modal dialog
             kentico.modalDialog.open({
-                url: '@Url.Kentico().AuthenticateUrl(Url.Action("Index", "CategorySelectModalDialog", new { IncludeSites = Model.IncludeSites, IncludeGlobalCategories = Model.IncludeGlobalCategories, IncludeDisabledCategories = Model.IncludeDisabledCategories, CurrentCultureName = CMS.Localization.LocalizationContext.CurrentCulture.CultureCode, MinimumSelectedCategoryNumber = Model.MinimumSelectedCategoryNumber, MaximumSelectedCategoryNumber = Model.MaximumSelectedCategoryNumber }))',
+                url: '@Url.Kentico().AuthenticateUrl(Url.Action("Index", "VisualAntidoteCategorySelectModalDialog", new { IncludeSites = Model.IncludeSites, IncludeGlobalCategories = Model.IncludeGlobalCategories, IncludeDisabledCategories = Model.IncludeDisabledCategories, CurrentCultureName = CMS.Localization.LocalizationContext.CurrentCulture.CultureCode, MinimumSelectedCategoryNumber = Model.MinimumSelectedCategoryNumber, MaximumSelectedCategoryNumber = Model.MaximumSelectedCategoryNumber }))',
                 maximized: true,
                 applyCallback: function (dialogWindow) {
                     // Retrieves the selected value from the modal dialog

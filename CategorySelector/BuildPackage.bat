@@ -1,3 +1,4 @@
-nuget pack CategorySelector.csproj -Prop Configuration=Release
+nuget pack -Build  -properties Configuration=Release
+
 @echo off
 pause

@@ -16,7 +16,7 @@ using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Repository;
 namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.ModalDialogs
 {
     [Authorize]
-    public class CategorySelectModalDialogController : Controller
+    public class VisualAntidoteCategorySelectModalDialogController : Controller
     {
         public ActionResult Index(List<string> IncludeSites, bool IncludeGlobalCategories = true, bool IncludeDisabledCategories = false, string CurrentCultureName = "en-US", int? MinimumSelectedCategoryNumber = null, int? MaximumSelectedCategoryNumber = null)
         {
@@ -45,17 +45,15 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
                 {
                     model.IsError = true;
                     model.ErrorMessage = "Error loading categories. Please check the Event Log for more details.";
-                    EventLogProvider.LogException("VisualAntidote.CategorySelectModalDialogController", "Error", ex);
+                    EventLogProvider.LogException("VisualAntidoteCategorySelectModalDialogController", "Error", ex);
                 }
 
 
                 // Return PartialView instead of View or else you get this error: The model item passed into the dictionary is of type 'Models.ModalDialogs.ColorModalDialogViewModel', but this dictionary requires a model item of type 'MedioClinic.Models.PageViewModel'.
                 // That is because the normal view uses the _Layout which assumes uses of the PageViewModel object
                 // We don't need the full view here, just the stand-alone modal dialog
-                return PartialView("ModalDialogs/CategorySelectModalDialog/_CategorySelectModalDialog", model);
+                return PartialView("ModalDialogs/VisualAntidoteCategorySelectModalDialog/_CategorySelectModalDialog", model);
             }
-
-            return HttpNotFound();
         }
 
 

@@ -1,7 +1,7 @@
 
 
-# *** BETA ***
-This project is currently in development.
+# *** ALPHA ***
+This project is currently under development.
 
   
 # Kentico 12 MVC Category Selector Form Component
@@ -68,10 +68,17 @@ Or install via the command line:
   
 
 1. Make sure the page has a reference to jQuery.
+2. Add a routing rule using the helper method `ApplyCategorySelectorRoute`
 
-2. Modify the widget properties code file. Create a new property of type List<String> and annotate with the CategorySelectComonent attribute.
+Example:
 
-Example
+    VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Helpers.RouteHelper.ApplyCategorySelectorRoute(routes);
+
+where routes is the `RouteCollection` object.
+
+3. Modify the widget properties code file. Create a new property of type `List<String>` and annotate it with the `CategorySelectComponent` attribute.
+
+Example:
 
     [EditingComponent(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectComponent.IDENTIFIER, Label = "Category list")]
     public List<string> CategoryCodeNameList { get; set; }
