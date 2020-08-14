@@ -272,10 +272,14 @@ If you would like to fork this project and create your own nuget packages from t
 1. Update the `Kentico.MVC.FormComponent.CategorySelector.nuspec` file in the `CategorySelector` folder with the details required.
 
 2. Update the project's version number (make sure this is done before compilation)
-		a. Right-click on the `CategorySelector` project and select Properties
-		b. Click the `Application` tab
-		c. Click the `Assembly information` button
-		d. Update the Assembly and File versions as required
+		
+	a. Right-click on the `CategorySelector` project and select Properties
+		
+	b. Click the `Application` tab
+		
+	c. Click the `Assembly information` button
+		
+	d. Update the Assembly and File versions as required
 
 3. Compile the project in Release mode
 
