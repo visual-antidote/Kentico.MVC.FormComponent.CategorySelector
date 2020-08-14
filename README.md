@@ -119,7 +119,7 @@ Example:
 
   
 
-VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Helpers.RouteHelper.ApplyCategorySelectorRoute(routes);
+    VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Helpers.RouteHelper.ApplyCategorySelectorRoute(routes);
 
   
 
@@ -135,9 +135,8 @@ Example:
 
   
 
-[EditingComponent(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectComponent.IDENTIFIER, Label = "Category list")]
-
-public List<string> CategoryCodeNameList { get; set; }
+	[EditingComponent(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectComponent.IDENTIFIER, Label = "Category list")]
+	public List<string> CategoryCodeNameList { get; set; }
 
   
 
@@ -165,7 +164,7 @@ Default value: **true**
 
   
 
-[EditingComponentProperty(nameof(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectProperties.IncludeGlobalCategories), false)]
+	[EditingComponentProperty(nameof(VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents.CategorySelectProperties.IncludeGlobalCategories), false)]
 
   
 
