@@ -79,7 +79,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
 
             try
             {
-                var categoriesQuery = CategoryRepository.GenerateCategoryQuery(IncludeSites, IncludeGlobalCategories, IncludeGlobalCategories);
+                var categoriesQuery = CategoryRepository.GenerateCategoryQuery(IncludeSites, IncludeGlobalCategories, IncludeDisabledCategories);
 
                 var categories = categoriesQuery.ToList()
                     .Select(x => new CategorySelectItemViewModel()

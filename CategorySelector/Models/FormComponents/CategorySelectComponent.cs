@@ -73,7 +73,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
                     return this.Properties.IncludeDisabledCategories;
                 }
 
-                return true;
+                return false;
             }
         }
 
