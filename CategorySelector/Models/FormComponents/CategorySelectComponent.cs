@@ -172,7 +172,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
                 var selectedCount = checkedCatgoryList.Count();
 
 
-                if (MinimumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.Value == MinimumSelectedCategoryNumber.Value)
+                if (MinimumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.Value == MinimumSelectedCategoryNumber.Value && selectedCount != MinimumSelectedCategoryNumber.Value)
                 {
                     baseValidationResults.Add(new ValidationResult($"Exactly {MinimumSelectedCategoryNumber.Value} categories required. "));
                 }
