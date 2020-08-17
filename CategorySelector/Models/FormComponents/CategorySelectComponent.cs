@@ -1,4 +1,6 @@
 ﻿using CMS.EventLog;
+using CMS.Helpers;
+using CMS.Membership;
 using CMS.SiteProvider;
 using CMS.Taxonomy;
 using Kentico.Forms.Web.Mvc;
@@ -9,7 +11,7 @@ using System.Linq;
 using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents;
 using VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Repository;
 
-[assembly: RegisterFormComponent(CategorySelectComponent.IDENTIFIER, typeof(CategorySelectComponent), "Category Select Form Component",
+[assembly: RegisterFormComponent(CategorySelectComponent.IDENTIFIER, typeof(CategorySelectComponent), "{$VisualAntidote.FormComponent.CategorySelect.Name$}",
     IsAvailableInFormBuilderEditor = false, ViewName = "FormComponents/_CategorySelectComponent")]
 namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormComponents
 {
@@ -146,24 +148,25 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
                 // need to make sure that each checkedCatgoryList exists in the queriedCategoryList
                 var allOfListCheckedIsInListQueried = checkedCatgoryList.Intersect(queriedCategoryList).Count() == checkedCatgoryList.Count();
 
+                var prefUltureCode = MembershipContext.AuthenticatedUser.PreferredUICultureCode;
                 if (allOfListCheckedIsInListQueried == false)
                 {
-                    var badQueryMsg = "Invalid categories. ";
+                    var badQueryMsg = ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.InvalidCats", prefUltureCode);
                     if (this.IncludeGlobalCategories == false)
                     {
-                        badQueryMsg += "No global categories allowed. ";
+                        badQueryMsg += ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.NoGlobals", prefUltureCode) + " ";
                     }
                     if (this.IncludeDisabledCategories == false)
                     {
-                        badQueryMsg += "No disabled categories allowed. ";
+                        badQueryMsg += ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.NoDisabled", prefUltureCode) + " ";
                     }
                     if (!String.IsNullOrEmpty(this.IncludeSites))
                     {
-                        badQueryMsg += $"Must be from the following sites: {this.IncludeSites}. ";
+                        badQueryMsg += $"{ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.FromSites", prefUltureCode)} {this.IncludeSites}. ";
                     }
                     else
                     {
-                        badQueryMsg += $"Only categories from {SiteContext.CurrentSiteName} are allowed.";
+                        badQueryMsg += $"{ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.OnlySite", prefUltureCode)} {SiteContext.CurrentSiteName}";
                     }
 
                     baseValidationResults.Add(new ValidationResult(badQueryMsg));
@@ -174,18 +177,18 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
 
                 if (MinimumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.HasValue && MaximumSelectedCategoryNumber.Value == MinimumSelectedCategoryNumber.Value && selectedCount != MinimumSelectedCategoryNumber.Value)
                 {
-                    baseValidationResults.Add(new ValidationResult($"Exactly {MinimumSelectedCategoryNumber.Value} categories required. "));
+                    baseValidationResults.Add(new ValidationResult($"{ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.Exactly", prefUltureCode)} {MinimumSelectedCategoryNumber.Value} {ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.CatsRequired", prefUltureCode)}. "));
                 }
                 else
                 {
                     if (MinimumSelectedCategoryNumber.HasValue && (selectedCount < MinimumSelectedCategoryNumber.Value))
                     {
-                        baseValidationResults.Add(new ValidationResult($"At least {MinimumSelectedCategoryNumber.Value} categories required. "));
+                        baseValidationResults.Add(new ValidationResult($"{ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.AtLeast", prefUltureCode)} {MinimumSelectedCategoryNumber.Value} {ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.CatsRequired", prefUltureCode)}. "));
                     }
 
                     if (MaximumSelectedCategoryNumber.HasValue && (selectedCount > MaximumSelectedCategoryNumber.Value))
                     {
-                        baseValidationResults.Add(new ValidationResult($"At most {MaximumSelectedCategoryNumber.Value} categories allowed. "));
+                        baseValidationResults.Add(new ValidationResult($"{ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.AtMost", prefUltureCode)} {MaximumSelectedCategoryNumber.Value} {ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.CatsAllowed", prefUltureCode)}. "));
                     }
                 }
             }

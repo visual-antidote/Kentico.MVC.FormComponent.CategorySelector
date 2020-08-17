@@ -61,8 +61,8 @@
                     // Updates the value of the input element in the property configuration dialog
                     inputElement.value = checkCategoryIDArray.join(","); //selectedValue;
                 },
-                applyButtonText: 'Confirm category selection',
-                title: 'Select categories',
+                applyButtonText: @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.BtnConfirm", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode),
+                title: @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.ModalTitle", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode),
                 // Passes the current categories to the modal dialog data
                 data: { value: inputElement.value }
             });

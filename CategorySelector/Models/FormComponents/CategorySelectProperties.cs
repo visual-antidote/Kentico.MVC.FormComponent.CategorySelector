@@ -16,19 +16,19 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
         /// <summary>
         /// To include categories from other sites, supply a comma-separated list of site code names
         /// </summary>
-        [EditingComponent(TextInputComponent.IDENTIFIER, Label = "Include Sites", DefaultValue = "", Tooltip = "To include categories from other sites, supply a comma-separated list of site code names", ExplanationText = "To include categories from other sites, supply a comma-separated list of site code names", Order = -95)]
+        [EditingComponent(TextInputComponent.IDENTIFIER, Label = "{$VisualAntidote.FormComponent.CategorySelect.IncludeSites$}", DefaultValue = "", Tooltip = "{$VisualAntidote.FormComponent.CategorySelect.IncludeSitesTip$}", ExplanationText = "{$VisualAntidote.FormComponent.CategorySelect.IncludeSitesTip$}", Order = -95)]
         public string IncludeSites { get; set; }
 
         /// <summary>
         /// Include Global categories
         /// </summary>
-        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Include Global categories", DefaultValue = true, Tooltip = "Include Global categories", ExplanationText = "Include global categories", Order = -98)]
+        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "{$VisualAntidote.FormComponent.CategorySelect.IncludeGlobalCategories$}", DefaultValue = true, Tooltip = "{$VisualAntidote.FormComponent.CategorySelect.IncludeGlobalCategories$}", ExplanationText = "{$VisualAntidote.FormComponent.CategorySelect.IncludeGlobalCategories$}", Order = -98)]
         public bool IncludeGlobalCategories { get; set; } = true;
 
         /// <summary>
         /// Include Disabled categories
         /// </summary>
-        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Include Disabled categories", DefaultValue = false, Tooltip = "Include disabled categories", ExplanationText = "Include disabled categories", Order = -99)]
+        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "{$VisualAntidote.FormComponent.CategorySelect.IncludeDisabledCategories$}", DefaultValue = false, Tooltip = "{$VisualAntidote.FormComponent.CategorySelect.IncludeDisabledCategories$}", ExplanationText = "{$VisualAntidote.FormComponent.CategorySelect.IncludeDisabledCategories$}", Order = -99)]
         public bool IncludeDisabledCategories { get; set; } = false;
 
         /// <summary>
