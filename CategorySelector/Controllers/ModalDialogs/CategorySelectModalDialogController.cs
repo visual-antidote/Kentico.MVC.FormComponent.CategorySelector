@@ -1,4 +1,5 @@
 ﻿using CMS.EventLog;
+using CMS.Membership;
 using CMS.SiteProvider;
 using CMS.Taxonomy;
 using Microsoft.Azure.Search;
@@ -22,8 +23,13 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
         {
             CategorySelectModalDialogViewModel model = new CategorySelectModalDialogViewModel(new List<CategorySelectItemViewModel>());
 
-            // Only allow via ajax requests.
-            // if (Request.IsAjaxRequest())
+            bool userCanAccess = true;
+
+            //Editors and above can see this data
+            userCanAccess = MembershipContext.AuthenticatedUser.CheckPrivilegeLevel(CMS.Base.UserPrivilegeLevelEnum.Editor);
+
+
+            if (userCanAccess)
             {
                 try
                 {
@@ -53,6 +59,10 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Controllers.
                 // That is because the normal view uses the _Layout which assumes uses of the PageViewModel object
                 // We don't need the full view here, just the stand-alone modal dialog
                 return PartialView("ModalDialogs/VisualAntidoteCategorySelectModalDialog/_CategorySelectModalDialog", model);
+            }
+            else
+            {
+                return new HttpNotFoundResult();
             }
         }
 
