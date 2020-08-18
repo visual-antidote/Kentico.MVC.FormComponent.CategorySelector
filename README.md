@@ -233,7 +233,7 @@ By default, there is no minimum and maximum restriction
 
   
 
-This project is build under the MIT license. Check the LICENSE file for more information.
+This project is build under the MIT license. Check the [LICENSE](https://github.com/visual-antidote/Kentico.MVC.FormComponent.CategorySelector/blob/master/LICENSE) file for more information.
 
   
 
