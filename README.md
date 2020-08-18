@@ -97,7 +97,7 @@ Or install via the command line:
 
   
 
-Install-Package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector
+	Install-Package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector
 
   
 
@@ -123,7 +123,7 @@ Example:
 
   
 
-where routes is the `RouteCollection` object.
+where `routes` is the `RouteCollection` object.
 
   
 
