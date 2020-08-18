@@ -118,54 +118,87 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="VisualAntidote.FormComponent.CategorySelect.Name" xml:space="preserve">
-    <value>Category Select Form Component!</value>
+    <value>Category Select Form Component</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.InvalidCats" xml:space="preserve">
-    <value>Invalid categories!</value>
+    <value>Invalid categories</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.AtLeast" xml:space="preserve">
-    <value>At least!</value>
+    <value>At least</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.AtMost" xml:space="preserve">
-    <value>At most!</value>
+    <value>At most</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.BtnConfirm" xml:space="preserve">
-    <value>Confirm category selection!</value>
+    <value>Confirm category selection</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.CatsAllowed" xml:space="preserve">
-    <value>categories allowed!</value>
+    <value>categories allowed</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.CatsRequired" xml:space="preserve">
-    <value>categories required!</value>
+    <value>categories required</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.Exactly" xml:space="preserve">
-    <value>Exactly!</value>
+    <value>Exactly</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.FromSites" xml:space="preserve">
-    <value>Must be from the following sites:!</value>
+    <value>Must be from the following sites:</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.IncludeDisabledCategories" xml:space="preserve">
-    <value>Include Disabled categories!</value>
+    <value>Include Disabled categories</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.IncludeGlobalCategories" xml:space="preserve">
-    <value>Include Global categories!</value>
+    <value>Include Global categories</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.IncludeGlobalCategoriesTip" xml:space="preserve">
-    <value>To include categories from other sites, supply a comma-separated list of site code names!</value>
+    <value>To include categories from other sites, supply a comma-separated list of site code names</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.IncludeSites" xml:space="preserve">
-    <value>Include Sites!</value>
+    <value>Include Sites</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.ModalTitle" xml:space="preserve">
-    <value>Select categories!</value>
+    <value>Select Categories</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.NoDisabled" xml:space="preserve">
-    <value>No disabled categories allowed.!</value>
+    <value>No disabled categories allowed</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.NoGlobals" xml:space="preserve">
-    <value>No global categories allowed.!</value>
+    <value>No global categories allowed</value>
   </data>
   <data name="VisualAntidote.FormComponent.CategorySelect.OnlySite" xml:space="preserve">
-    <value>Only categories from this site are allowed:!</value>
+    <value>Only categories from this site are allowed</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.Categories" xml:space="preserve">
+    <value>categories</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.CategoriesSelected" xml:space="preserve">
+    <value>categories selected</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.CollapseAll" xml:space="preserve">
+    <value>Collapse All</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.DeselectAll" xml:space="preserve">
+    <value>Deselect All</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.ExpandAll" xml:space="preserve">
+    <value>Expand All</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.MaxSelected" xml:space="preserve">
+    <value>Maximum categories selected</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.MustSelectAtLeast" xml:space="preserve">
+    <value>Must select at least</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.SelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.SelectAtLeast" xml:space="preserve">
+    <value>Please select at least</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.SelectBetween" xml:space="preserve">
+    <value>Please select between</value>
+  </data>
+  <data name="VisualAntidote.FormComponent.CategorySelect.SelectUpTo" xml:space="preserve">
+    <value>Please select up to</value>
   </data>
 </root>

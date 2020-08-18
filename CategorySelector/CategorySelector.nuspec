@@ -16,7 +16,7 @@
 		<copyright>2020</copyright>
 		<tags>Kentico MVC Form Component VisualAntidote Category Categories</tags>
 		<dependencies>
-      		<group targetFramework=".NETFramework4.6.1">
+			<group targetFramework=".NETFramework4.6.1">
 				<dependency id="Kentico.AspNet.Mvc" version="12.0.29" />
 			</group>
 		</dependencies>

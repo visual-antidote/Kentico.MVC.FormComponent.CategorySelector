@@ -151,14 +151,14 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
                 var prefUltureCode = MembershipContext.AuthenticatedUser.PreferredUICultureCode;
                 if (allOfListCheckedIsInListQueried == false)
                 {
-                    var badQueryMsg = ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.InvalidCats", prefUltureCode);
+                    var badQueryMsg = ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.InvalidCats", prefUltureCode) + ". ";
                     if (this.IncludeGlobalCategories == false)
                     {
-                        badQueryMsg += ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.NoGlobals", prefUltureCode) + " ";
+                        badQueryMsg += ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.NoGlobals", prefUltureCode) + ". ";
                     }
                     if (this.IncludeDisabledCategories == false)
                     {
-                        badQueryMsg += ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.NoDisabled", prefUltureCode) + " ";
+                        badQueryMsg += ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.NoDisabled", prefUltureCode) + ". ";
                     }
                     if (!String.IsNullOrEmpty(this.IncludeSites))
                     {
@@ -166,7 +166,7 @@ namespace VisualAntidote.Kentico.MVC.FormComponent.CategorySelector.Models.FormC
                     }
                     else
                     {
-                        badQueryMsg += $"{ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.OnlySite", prefUltureCode)} {SiteContext.CurrentSiteName}";
+                        badQueryMsg += $"{ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.OnlySite", prefUltureCode)}: {SiteContext.CurrentSiteName}. ";
                     }
 
                     baseValidationResults.Add(new ValidationResult(badQueryMsg));

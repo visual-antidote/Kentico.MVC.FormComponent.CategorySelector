@@ -80,31 +80,31 @@
     }
 
 
-    <button class="btn btn-responsive  btn-primary" id="expandAll">Expand All</button>
+<button class="btn btn-responsive  btn-primary" id="expandAll">@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.ExpandAll", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)</button>
 
-    <button class="btn btn-responsive  btn-primary" id="collapseAll">Collapse All</button>
+<button class="btn btn-responsive  btn-primary" id="collapseAll">@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.CollapseAll", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)</button>
 
-    <button class="btn btn-responsive  btn-primary" id="selectAll">Select All</button>
+<button class="btn btn-responsive  btn-primary" id="selectAll">@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.SelectAll", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)</button>
 
-    <button class="btn btn-responsive  btn-primary" id="deselectAll">Deselect All</button>
+<button class="btn btn-responsive  btn-primary" id="deselectAll">@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.DeselectAll", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)</button>
 
     @{
         if (Model.MinimumSelectedCategoryNumber.HasValue && Model.MaximumSelectedCategoryNumber.HasValue)
         {
-            <h5>Please select between @Model.MinimumSelectedCategoryNumber.Value and @Model.MaximumSelectedCategoryNumber.Value categories</h5>
+            <h5>@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.SelectBetween", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode) @Model.MinimumSelectedCategoryNumber.Value - @Model.MaximumSelectedCategoryNumber.Value @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.Categories", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)</h5>
         }
         else if (Model.MinimumSelectedCategoryNumber.HasValue && Model.MinimumSelectedCategoryNumber.Value > 0)
         {
-            <h5>Please select at least @Model.MinimumSelectedCategoryNumber.Value categories</h5>
+            <h5>@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.SelectAtLeast", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode) @Model.MinimumSelectedCategoryNumber.Value @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.Categories", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)</h5>
         }
         else if (Model.MaximumSelectedCategoryNumber.HasValue)
         {
-            <h5>Please select up to @Model.MaximumSelectedCategoryNumber.Value categories</h5>
+            <h5>@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.SelectUpTo", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode) @Model.MaximumSelectedCategoryNumber.Value @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.Categories", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)</h5>
         }
     }
-    <div class="alert alert-info" style="color:navy;margin-top:10px;">
-        <span id="category-select-modal-number-selected"></span> categories selected
-    </div>
+<div class="alert alert-info" style="color:navy;margin-top:10px;">
+    <span id="category-select-modal-number-selected"></span> @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.CategoriesSelected", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)
+</div>
 
     <div class="alert alert-danger" id="category-select-modal-error" style="color:red;">
 
@@ -118,7 +118,7 @@
 
     @* Script that preselects the check boxes button of the current categories
         Gets the value from the data passed when the 'kentico.modalDialog.open' function is called *@
-    <script type="text/javascript">
+<script type="text/javascript">
 
         var minimumCategories = @Model.MinimumSelectedCategoryNumber.GetValueOrDefault(-1);
         var maximumCategories = @Model.MaximumSelectedCategoryNumber.GetValueOrDefault(-1);
@@ -194,7 +194,7 @@
                 if (maximumCategories > -1) {
                     if (listCount >= maximumCategories) {
                         categoryErrorMessageElement.style.display = "block";
-                        categoryErrorMessageElement.innerHTML += "Maximum categories selected. ";
+                        categoryErrorMessageElement.innerHTML += "@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.MaxSelected", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)" + ". ";
                         SetStateOfUncheckedNodes(false);
                     }
                     else {
@@ -205,13 +205,13 @@
                 if (minimumCategories > -1) {
                     if (listCount < minimumCategories) {
                         categoryErrorMessageElement.style.display = "block";
-                        categoryErrorMessageElement.innerHTML += "Must select at least " + minimumCategories + ". ";
+                        categoryErrorMessageElement.innerHTML += "@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.MustSelectAtLeast", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)"+ " " + minimumCategories + ". ";
                     }
                 }
             }
         }
 
-        // Go through all unchecked nodes and enable/disable them. 
+        // Go through all unchecked nodes and enable/disable them.
         // This is used when the maximum number of selections have been made to prevent user from going over. (Server-side validation still takes place.)
         function SetStateOfUncheckedNodes(enable) {
             let stateFunction = "disableNode";
@@ -236,6 +236,6 @@
         }
 
 
-    </script>
+</script>
 </body>
 </html>

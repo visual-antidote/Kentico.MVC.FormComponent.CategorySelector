@@ -20,10 +20,10 @@
 
 
 @* Button that opens the modal dialog when clicked *@
-<button type="button" class="ktc-btn ktc-btn-default" id="@buttonOpenModalId">Select Categories</button>
-<div>
-    <span style="font-weight:bold;" id="@categoryCountId">@Model.CategoriesSelectedCount</span> categories selected
-</div>
+    <button type="button" class="ktc-btn ktc-btn-default" id="@buttonOpenModalId">@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.ModalTitle", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)</button>
+    <div>
+        <span style="font-weight:bold;" id="@categoryCountId">@Model.CategoriesSelectedCount</span> @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.CategoriesSelected", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)
+    </div>
 @* Textbox input element that holds the form component's list of categories. This will be a comma-separated list that is populated by the modal dialog. *@
 @Html.HiddenFor(m => m.CategoryCodeNameListAsText, htmlAttributes)
 
@@ -61,8 +61,8 @@
                     // Updates the value of the input element in the property configuration dialog
                     inputElement.value = checkCategoryIDArray.join(","); //selectedValue;
                 },
-                applyButtonText: @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.BtnConfirm", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode),
-                title: @CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.ModalTitle", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode),
+                applyButtonText: '@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.BtnConfirm", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)',
+                title: '@CMS.Helpers.ResHelper.GetString("VisualAntidote.FormComponent.CategorySelect.ModalTitle", CMS.Membership.MembershipContext.AuthenticatedUser.PreferredUICultureCode)',
                 // Passes the current categories to the modal dialog data
                 data: { value: inputElement.value }
             });
