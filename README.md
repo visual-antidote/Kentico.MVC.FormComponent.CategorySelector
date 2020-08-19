@@ -10,9 +10,8 @@ This project is currently under development.
 
 # Kentico 12 MVC Category Selector Form Component
 
-  ## Compatibility
-Can be used on any Kentico 12 SP site (hotfix 29 or above).
-Installing on an older version of Kentico may cause problems.  
+  ## Requirements
+* Kentico 12.0.79 or later version is required to use this component. Installing on an older version of Kentico may cause problems.  
   
 
 ### Kentico.MVC.FormComponent.CategorySelector
