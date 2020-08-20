@@ -349,3 +349,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /Kentico.MVC.FormComponent.CategorySelector
+/CategorySelector/kentico.ems12.mvccomponents.widget.richtext.1.3.0
