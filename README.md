@@ -1,4 +1,5 @@
 
+
   
   
 
@@ -10,9 +11,8 @@ This project is currently under development.
 
 # Kentico 12 MVC Category Selector Form Component
 
-  ## Compatibility
-Can be used on any Kentico 12 SP site (hotfix 29 or above).
-Installing on an older version of Kentico may cause problems.  
+  ## Requirements
+* Kentico **12.0.29** or later version is required to use this component. Installing on an older version of Kentico may cause problems.  
   
 
 ### Kentico.MVC.FormComponent.CategorySelector
@@ -33,61 +33,13 @@ The component returns the selected categories as a list of category code names.
 
 ![VisualAntidoteCategorySelectorFormComponent2.png](https://github.com/visual-antidote/Kentico.MVC.FormComponent.CategorySelector/blob/master/SampleImages/VisualAntidoteCategorySelectorFormComponent2.png?raw=true)
 
-  
-
-## Adding Repository Source
-
-  
-
-  
-
-Since this package is hosted in a user-created Azure Artifact Feed, and not the official nuget repository, you must first make Visual Studio aware of this feed.
-
-  
-
-  
-
-[VA Test Feed](https://pkgs.dev.azure.com/vasandbox/0675b2f1-7fa9-4bd4-9472-5e8ff3b5f45e/_packaging/VATestFeed/nuget/v3/index.json)
-
-  
-
-  
-
-1. In Visual Studio. Navigate to `Tools > NuGet Package Manager > Manage Nuget Packages for Solution...`
-
-2. Click on the gear icon in the top right corner
-
-  
-
-3. Click the green + icon to add a new package source
-
-  
-
-4. Enter the Name and Source from the Azure Feed: [VA Test Feed](https://pkgs.dev.azure.com/vasandbox/0675b2f1-7fa9-4bd4-9472-5e8ff3b5f45e/_packaging/VATestFeed/nuget/v3/index.json) (right-click and select 'Copy link address')
-
-  
-
-6. Click Update
-
-  
 
 ## Install the Nuget Package
 
-  
-
-  
-
-Once the repository source is added and selected, you can install the Nuget package.
-
-  
 
 Using Visual Studio's Nuget package manager, search for the following
 
-  
-
 **VisualAntidote.Kentico.MVC.FormComponent.CategorySelector**
-
-  
 
 Install that package to enable use of the Category Selector Form Component.
 
@@ -96,8 +48,16 @@ Install that package to enable use of the Category Selector Form Component.
 Or install via the command line:
 
   
+Package Manager
 
-Install-Package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector
+    Install-Package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector
+or
+
+.Net CLI
+
+    dotnet add package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector
+
+
 
   
 
@@ -123,7 +83,7 @@ Example:
 
   
 
-where routes is the `RouteCollection` object.
+where `routes` is the `RouteCollection` object.
 
   
 
@@ -233,7 +193,7 @@ By default, there is no minimum and maximum restriction
 
   
 
-This project is build under the MIT license. Check the LICENSE file for more information.
+This project is build under the MIT license. Check the [LICENSE](https://github.com/visual-antidote/Kentico.MVC.FormComponent.CategorySelector/blob/master/LICENSE) file for more information.
 
   
 

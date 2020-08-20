@@ -7,12 +7,14 @@
 		<authors>$author$</authors>
 		<owners>$author$</owners>
 		<projectUrl>https://github.com/visual-antidote/Kentico.MVC.FormComponent.CategorySelector</projectUrl>
+		<repository type="git" url="https://github.com/visual-antidote/Kentico.MVC.FormComponent.CategorySelector" branch="master" />
 		<iconUrl>https://www.visualantidote.com/images/va-nuget-logo.png</iconUrl>
 		<icon>images\va-nuget-logo.png</icon>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<license type="expression">MIT</license>
 		<description>$description$</description>
-		<releaseNotes>Fixed bug when Min and Max selected values are the same.</releaseNotes>
+		<summary>$description$</summary>
+		<releaseNotes>Initial release on Kentico MVC Category Selector Form Component.</releaseNotes>
 		<copyright>2020</copyright>
 		<tags>Kentico MVC Form Component VisualAntidote Category Categories</tags>
 		<dependencies>
