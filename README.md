@@ -1,14 +1,3 @@
-
-
-  
-  
-
-# *** ALPHA ***
-
-This project is currently under development.
-
-  
-
 # Kentico 12 MVC Category Selector Form Component
 
   ## Requirements
