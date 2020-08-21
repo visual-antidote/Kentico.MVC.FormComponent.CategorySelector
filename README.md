@@ -26,9 +26,11 @@ The component returns the selected categories as a list of category code names.
 ## Install the Nuget Package
 
 
-Using Visual Studio's Nuget package manager, search for the following
+Using Visual Studio's Nuget package manager, search for the following:
 
 **VisualAntidote.Kentico.MVC.FormComponent.CategorySelector**
+
+([click here to see the package on nuget.org](https://www.nuget.org/packages/VisualAntidote.Kentico.MVC.FormComponent.CategorySelector))
 
 Install that package to enable use of the Category Selector Form Component.
 
