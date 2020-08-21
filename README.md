@@ -253,4 +253,4 @@ The Checkbox Treeview UI uses the [hummingbird-treeview](https://github.com/humm
 
 Feel free to Fork and submit pull requests to contribute.
 
-You can submit bugs through the issue list and we will get to them as soon as we can, unless you want to fix it yourself and submit a pull request.
+You can submit bugs or ask questions through the issue list and we will get to them as soon as we can, unless you want to fix it yourself and submit a pull request.
