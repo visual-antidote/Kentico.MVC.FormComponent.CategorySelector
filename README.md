@@ -249,3 +249,8 @@ This project was based on the [Shareable Component Boilerplate](https://github.c
 
 The Checkbox Treeview UI uses the [hummingbird-treeview](https://github.com/hummingbird-dev/hummingbird-treeview) library by Sebastian Mieruch.
 
+## Contributions, bug fixes
+
+Feel free to Fork and submit pull requests to contribute.
+
+You can submit bugs through the issue list and we will get to them as soon as we can, unless you want to fix it yourself and submit a pull request.
