@@ -41,12 +41,12 @@ Or install via the command line:
   
 Package Manager
 
-    Install-Package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector
+    Install-Package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector -Version 1.0.0
 or
 
 .Net CLI
 
-    dotnet add package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector
+    dotnet add package VisualAntidote.Kentico.MVC.FormComponent.CategorySelector --version 1.0.0
 
 
 
