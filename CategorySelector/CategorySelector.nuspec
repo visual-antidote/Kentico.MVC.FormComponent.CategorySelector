@@ -14,7 +14,7 @@
 		<license type="expression">MIT</license>
 		<description>$description$</description>
 		<summary>$description$</summary>
-		<releaseNotes>Initial release on Kentico MVC Category Selector Form Component.</releaseNotes>
+		<releaseNotes>Updated author name</releaseNotes>
 		<copyright>2020</copyright>
 		<tags>Kentico MVC Form Component VisualAntidote Category Categories</tags>
 		<dependencies>
