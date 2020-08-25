@@ -9,7 +9,7 @@ using CMS;
 [assembly: AssemblyTitle("VisualAntidote.Kentico.MVC.FormComponent.CategorySelector")]
 [assembly: AssemblyDescription("A custom Kentico MVC form component that allows editors to select categories from a list of checkboxes in a modal window.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Visual Antidote Inc.")]
+[assembly: AssemblyCompany("Visual Antidote")]
 [assembly: AssemblyProduct("Kentico.MVC.FormComponent.CategorySelector")]
 [assembly: AssemblyCopyright("2020")]
 [assembly: AssemblyTrademark("")]
@@ -33,5 +33,5 @@ using CMS;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.7.0.0")]
-[assembly: AssemblyFileVersion("1.7.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
